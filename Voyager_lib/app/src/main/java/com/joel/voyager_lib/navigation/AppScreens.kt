@@ -21,8 +21,8 @@ object HomeScreen : Screen{
           }
         )
     }
-
 }
+
 object BookingsScreen : Screen{
 
     @Composable
