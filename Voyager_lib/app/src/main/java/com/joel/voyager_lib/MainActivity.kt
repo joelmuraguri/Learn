@@ -4,15 +4,14 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.Box
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.sp
+import cafe.adriel.voyager.navigator.Navigator
+import com.joel.voyager_lib.navigation.HomeScreen
 import com.joel.voyager_lib.ui.theme.Voyager_libTheme
 
 class MainActivity : ComponentActivity() {
@@ -25,19 +24,16 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    Box(
-                        modifier = Modifier.fillMaxSize(),
-                        contentAlignment = Alignment.Center
-                    ){
-                        Text(
-                            "Voyager",
-                            fontSize = 25.sp
-                        )
-                    }
+                    VoyagerApp()
                 }
             }
         }
     }
+}
+
+@Composable
+fun VoyagerApp(){
+    Navigator(HomeScreen)
 }
 
 @Composable
