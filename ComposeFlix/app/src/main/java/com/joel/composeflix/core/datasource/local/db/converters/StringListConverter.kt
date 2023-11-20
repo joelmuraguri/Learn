@@ -21,4 +21,5 @@ class StringListConverter {
         }
         return Gson().toJson(list)
     }
+
 }

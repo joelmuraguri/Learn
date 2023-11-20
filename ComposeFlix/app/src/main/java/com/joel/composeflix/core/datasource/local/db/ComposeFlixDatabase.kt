@@ -9,7 +9,6 @@ import com.joel.composeflix.core.datasource.local.db.entities.CastEntity
 import com.joel.composeflix.core.datasource.local.db.entities.FilmEntity
 import com.joel.composeflix.core.datasource.local.db.converters.StringListConverter
 
-
 @Database(entities = [FilmEntity::class,CastEntity::class] , version = 1, exportSchema = false)
 @TypeConverters(StringListConverter::class)
 abstract class ComposeFlixDatabase() : RoomDatabase() {

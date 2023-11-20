@@ -6,7 +6,6 @@ import androidx.room.Upsert
 import com.joel.composeflix.core.datasource.local.db.entities.FilmEntity
 import kotlinx.coroutines.flow.Flow
 
-
 @Dao
 interface FilmDao {
 

@@ -15,5 +15,4 @@ interface CastDao {
     @Upsert
     suspend fun insertCasts(castEntity: CastEntity)
 
-
 }
