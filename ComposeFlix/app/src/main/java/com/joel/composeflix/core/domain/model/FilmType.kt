@@ -1,6 +1,6 @@
 package com.joel.composeflix.core.domain.model
 
-enum class MovieType {
-    FILM,
+enum class FilmType {
+    MOVIE,
     TV_SHOWS
 }

@@ -5,7 +5,7 @@ import org.junit.Test
 
 class MovieDetailsTest {
 
-    private val details = MovieDetails(
+    private val details = Film(
         id = 1,
         title = "",
         thumbsDown = 2,
@@ -16,7 +16,8 @@ class MovieDetailsTest {
         pgRating = "",
         releaseDate = "",
         genres = emptyList(),
-        rating = 24
+        rating = 24,
+        popularity = 34
     )
 
     @Test

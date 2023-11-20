@@ -1,6 +1,8 @@
 package com.joel.composeflix.core.domain.model
 
-data class MovieDetails(
+import androidx.compose.ui.graphics.Color
+
+data class Film(
     val id : Int,
     val title : String,
     val image : Int,
@@ -11,7 +13,8 @@ data class MovieDetails(
     val releaseDate : String,
     val thumbsUp : Int,
     val thumbsDown : Int,
-    val pgRating : String
+    val pgRating : String,
+    val popularity : Int
 ){
 
     fun convertDurationToTime(): String {
@@ -19,5 +22,14 @@ data class MovieDetails(
         val minutes = duration % 60
 
         return String.format("%02d:%02d", hours, minutes)
+    }
+
+    fun filterPopularityByColor() : Color {
+        return when{
+            popularity < 30 -> Color.Red
+            popularity in 30..60 -> Color.Yellow
+            popularity in 61..100 -> Color.Green
+            else -> Color.White
+        }
     }
 }
