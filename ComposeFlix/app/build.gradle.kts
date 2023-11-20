@@ -49,6 +49,10 @@ android {
         getByName("debug") {
             buildConfigField("String", "API_KEY", "\"${localProperties.getProperty("API_KEY")}\"")
         }
+        debug {
+            // configuration for debug builds
+            buildConfigField("boolean", "DEBUG", "true")
+        }
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_17
@@ -88,12 +92,16 @@ dependencies {
     androidTestImplementation(libs.ui.test.junit4)
     debugImplementation(libs.ui.tooling)
     debugImplementation(libs.ui.test.manifest)
+    testImplementation(libs.mockk)
+
 
     // room
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     annotationProcessor(libs.room.compiler)
     ksp(libs.room.compiler)
+    implementation(libs.gson)
+
 
     //hilt
     implementation(libs.hilt.android)
@@ -118,6 +126,7 @@ dependencies {
     implementation(libs.ktor.client.content.negotiation)
     implementation(libs.ktor.client.serialization)
     implementation(libs.ktor.client.logging.jvm)
+    testImplementation(libs.ktor.client.mock)
 
     //paging
     implementation(libs.androidx.paging)
