@@ -12,7 +12,7 @@ class MovieDetailsTest {
         thumbsUp = 5,
         description = "",
         image = 1,
-        duration = 181,
+        duration = 255,
         pgRating = "",
         releaseDate = "",
         genres = emptyList(),
@@ -23,6 +23,6 @@ class MovieDetailsTest {
     @Test
     fun convertTime_isCorrect(){
         val time  = details.convertDurationToTime()
-        assertEquals("03:01", time)
+        assertEquals("04:15", time)
     }
 }
