@@ -1,12 +1,12 @@
-package com.joel.composeflix.core.domain.remote.api
+package com.joel.composeflix.core.datasource.remote.api
 
 import com.joel.composeflix.core.datasource.remote.api.FilmRemoteSourceImpl
 import com.joel.composeflix.core.datasource.remote.response.MovieApiResponse
 import com.joel.composeflix.core.datasource.remote.response.MovieDetailsApiResponse
 import com.joel.composeflix.core.datasource.remote.utils.HttpClientFactory
 import com.joel.composeflix.core.datasource.remote.utils.NetworkResult
-import com.joel.composeflix.core.domain.remote.utils.MovieApiResponseModel
-import com.joel.composeflix.core.domain.remote.utils.MovieDetailsApiResponseModel
+import com.joel.composeflix.core.datasource.remote.utils.MovieApiResponseModel
+import com.joel.composeflix.core.datasource.remote.utils.MovieDetailsApiResponseModel
 import io.ktor.client.engine.mock.MockEngine
 import io.ktor.client.engine.mock.respond
 import io.ktor.http.HttpHeaders
@@ -66,7 +66,9 @@ class FilmRemoteSourceTest {
             }
 
             //Then
-            val expected = Json.decodeFromString<MovieDetailsApiResponse>(MovieDetailsApiResponseModel)
+            val expected = Json.decodeFromString<MovieDetailsApiResponse>(
+                MovieDetailsApiResponseModel
+            )
             assertEquals(expected, data)
 
         }

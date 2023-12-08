@@ -1,4 +1,4 @@
-package com.joel.composeflix.core.domain.remote.utils
+package com.joel.composeflix.core.datasource.remote.utils
 
 const val MovieApiResponseModel = "{\n" +
         "  \"page\": 1,\n" +
