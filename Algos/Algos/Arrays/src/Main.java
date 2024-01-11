@@ -17,7 +17,6 @@ public class Main {
         for (String i : teams){
             System.out.println(i);
         }
-
     }
 }
 
