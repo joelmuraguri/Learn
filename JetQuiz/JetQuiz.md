@@ -2,7 +2,10 @@
 
 ## Overview
 
-This Android Quiz App is developed using Modern Android Development skills, with a primary focus on state management in Jetpack Compose. The application comprises two screens: StartPage and Quiz Screen. The app leverages two essential libraries, Navigation and Lottie Animation, to enhance the user experience.
+This Android Quiz App is developed using Modern Android Development skills,
+with a primary focus on state management in Jetpack Compose. 
+The application comprises two screens: StartPage and Quiz Screen. 
+The app leverages two essential libraries, Navigation and Lottie Animation, to enhance the user experience.
 
 ## Screens
 
@@ -45,3 +48,4 @@ To run the Quiz App on your local machine, follow these steps:
 3. Build and run the app on an emulator or physical device.
 
 Feel free to explore and contribute to the project, enhancing your skills in Modern Android Development and Jetpack Compose!
+                                                                                ````````````````````````````````````qqqqqqqqqqqq1````````````````````````````````````                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       
