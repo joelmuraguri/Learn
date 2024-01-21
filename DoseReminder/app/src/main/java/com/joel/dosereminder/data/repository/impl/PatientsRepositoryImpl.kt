@@ -13,6 +13,10 @@ class PatientsRepositoryImpl(
         return patientDao.getAllPatients()
     }
 
+    override fun fetchPatientById(patientId: Int): Flow<PatientEntity> {
+        return patientDao.getPatientById(patientId)
+    }
+
     override fun fetchAllPatientsWithMedication(patientId: Int): Flow<PatientWithMedications> {
         return patientDao.getPatientWithAllMedications(patientId)
     }

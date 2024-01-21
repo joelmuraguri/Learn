@@ -15,6 +15,9 @@ interface MedicationsDao {
     @Query("SELECT * FROM Medications_Entity ORDER BY timeStamp DESC")
     fun fetchAllMedication() : Flow<List<MedicationsEntity>>
 
+    @Query("SELECT * FROM Medications_Entity WHERE medicationId=:id")
+    fun getMedicationsById(id : Int) : Flow<MedicationsEntity>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertMedication(medicationsEntity: MedicationsEntity)
 

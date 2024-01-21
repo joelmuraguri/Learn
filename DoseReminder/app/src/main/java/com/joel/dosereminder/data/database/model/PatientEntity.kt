@@ -6,7 +6,8 @@ import androidx.room.PrimaryKey
 @Entity("Patient_Entity")
 data class PatientEntity(
     @PrimaryKey(autoGenerate = true)
-    val patientId : Int,
-    val userName : String,
-    val timeStamp : Long
+    val patientId : Int = 0,
+    val firstName : String,
+    val lastName : String,
+    val timeStamp : Long = 0L
 )

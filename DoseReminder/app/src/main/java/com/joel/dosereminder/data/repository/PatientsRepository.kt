@@ -7,7 +7,7 @@ import kotlinx.coroutines.flow.Flow
 interface PatientsRepository {
 
     fun fetchAllPatientsInfo() : Flow<List<PatientEntity>>
-
+    fun fetchPatientById(patientId: Int) : Flow<PatientEntity>
     fun fetchAllPatientsWithMedication(patientId : Int) : Flow<PatientWithMedications>
 
     suspend fun insertPatientInfo(patientEntity: PatientEntity)

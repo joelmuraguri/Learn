@@ -7,6 +7,7 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Update
+import com.joel.dosereminder.data.database.model.MedicationsEntity
 import com.joel.dosereminder.data.database.model.PatientEntity
 import com.joel.dosereminder.data.database.relations.PatientWithMedications
 import kotlinx.coroutines.flow.Flow
@@ -16,6 +17,9 @@ interface PatientDao {
 
     @Query("SELECT * FROM Patient_Entity ORDER BY timeStamp DESC")
     fun getAllPatients() : Flow<List<PatientEntity>>
+
+    @Query("SELECT * FROM Patient_Entity WHERE patientId=:id")
+    fun getPatientById(id : Int) : Flow<PatientEntity>
 
     @Transaction
     @Query("SELECT * FROM Patient_Entity WHERE patientId=:patientId")
