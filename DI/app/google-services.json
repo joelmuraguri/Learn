@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "648855958593",
+    "project_id": "authentication-app-4e353",
+    "storage_bucket": "authentication-app-4e353.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:648855958593:android:e1e8b7fc5eadafebf742c0",
+        "android_client_info": {
+          "package_name": "com.helplink.authentication_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBPUWVk1BYc1bLdDmmRj4XU20O3LOltcpc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
