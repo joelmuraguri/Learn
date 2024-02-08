@@ -1,4 +1,4 @@
-package com.auth_app.authentication_app.ui.screens
+package com.auth_app.authentication_app.ui.screens.home
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -13,12 +13,27 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.auth_app.authentication_app.di.ViewModelFactory
 
 @Composable
 fun HomeScreen(
-    onLogOut : () -> Unit
+    homeViewModel: HomeViewModel = viewModel(factory = ViewModelFactory.Factory)
 ){
 
+    homeViewModel.currentUser?.let {
+        UserInfo(
+            onLogOut = { homeViewModel.logout() },
+            name = it.displayName.toString()
+        )
+    }
+}
+
+@Composable
+fun UserInfo(
+    onLogOut : () -> Unit,
+    name : String
+){
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -29,7 +44,7 @@ fun HomeScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = "USER NAME",
+                text = "Hi $name",
                 modifier = Modifier
                     .padding(32.dp),
                 fontWeight = FontWeight.ExtraBold,
@@ -40,5 +55,4 @@ fun HomeScreen(
             }
         }
     }
-
 }

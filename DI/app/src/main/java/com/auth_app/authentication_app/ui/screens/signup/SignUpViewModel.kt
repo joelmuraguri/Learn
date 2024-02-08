@@ -17,46 +17,42 @@ class SignUpViewModel(
     private val _signUpFlow = MutableStateFlow<AuthResult<FirebaseUser>?>(null)
     val signUpFlow : StateFlow<AuthResult<FirebaseUser>?> = _signUpFlow
 
-    val uiState = mutableStateOf(SignUpUiState())
 
-    private val _name : String
-        get() = uiState.value.email
+    private var _name = mutableStateOf("")
+    val name : String
+        get() = _name.value
 
-    private val _email : String
-        get() = uiState.value.email
+    private var _email = mutableStateOf("")
+    val email : String
+        get() = _email.value
 
-    private val _password : String
-        get() = uiState.value.password
+    private var _password = mutableStateOf("")
+    val password : String
+        get() = _password.value
 
 
     fun onEvents(events: SignUpEvents){
         when(events){
-            SignUpEvents.Login -> {
+            SignUpEvents.SignUp -> {
                 viewModelScope.launch {
                     _signUpFlow.value = AuthResult.Loading
                     val result = accountService.signup(
-                        email = _email,
-                        password = _password,
-                        name = _name
+                        email = _email.value,
+                        password = _password.value,
+                        name = _name.value
                     )
                     _signUpFlow.value = result
                 }
             }
             is SignUpEvents.OnEmailChange -> {
-                uiState.value = uiState.value.copy(
-                    email = _email
-                )
+                _email.value = events.email
             }
             is SignUpEvents.OnPasswordChange ->{
-                uiState.value = uiState.value.copy(
-                    password = _password
-                )
+                _password.value = events.password
             }
 
             is SignUpEvents.OnNameChange -> {
-                uiState.value = uiState.value.copy(
-                    name = _name
-                )
+                _name.value = events.name
             }
         }
     }
@@ -65,13 +61,7 @@ class SignUpViewModel(
 
 sealed class SignUpEvents{
     data class OnEmailChange(val email : String) : SignUpEvents()
-    data class OnPasswordChange(val email : String) : SignUpEvents()
+    data class OnPasswordChange(val password : String) : SignUpEvents()
     data class OnNameChange(val name : String) : SignUpEvents()
-    data object Login : SignUpEvents()
+    data object SignUp : SignUpEvents()
 }
-
-data class SignUpUiState(
-    val email : String = "",
-    val password : String = "",
-    val name : String = ""
-)

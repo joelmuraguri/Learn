@@ -1,5 +1,6 @@
 package com.auth_app.authentication_app.ui.screens.login
 
+import android.widget.Toast
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,25 +12,36 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Email
 import androidx.compose.material.icons.filled.Lock
 import androidx.compose.material3.Button
+import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.scale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
+import androidx.navigation.NavHostController
+import com.auth_app.authentication_app.Screen
+import com.auth_app.authentication_app.data.utils.AuthResult
+import com.auth_app.authentication_app.di.ViewModelFactory
 
 @Composable
 fun LogInScreen(
     onNavToSignUp : () -> Unit,
-    onNavToHome : () -> Unit,
+    loginViewModel: LoginViewModel = viewModel(factory = ViewModelFactory.Factory),
+    navController: NavHostController
 ){
+
+    val authResource = loginViewModel.loginFlow.collectAsState()
+
 
     Surface(
         modifier = Modifier
@@ -40,28 +52,52 @@ fun LogInScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             LoginInputFields(
-                onNavToSignUp, onNavToHome
+                onNavToSignUp,
+                onSignIn = {
+                    loginViewModel.onEvents(LoginEvents.Login)
+                },
+                email = loginViewModel.email,
+                password = loginViewModel.password,
+                onEmailChange = {
+                    loginViewModel.onEvents(LoginEvents.OnEmailChange(it))
+                },
+                onPasswordChange = {
+                    loginViewModel.onEvents(LoginEvents.OnPasswordChange(it))
+                }
             )
         }
 
+        authResource.value?.let {
+            when(it){
+                is AuthResult.Failure -> {
+                    val context = LocalContext.current
+                    Toast.makeText(context, it.exception.message, Toast.LENGTH_SHORT).show()
+                }
+                AuthResult.Loading -> {
+                    CircularProgressIndicator(
+                        modifier = Modifier
+                            .scale(0.5f)
+                    )
+                }
+                is AuthResult.Success -> {
+                    LaunchedEffect(Unit){
+                        navController.navigate(Screen.Home.route)
+                    }
+                }
+            }
+        }
     }
 }
 
 @Composable
 fun LoginInputFields(
     onNavToSignUp : () -> Unit,
-    onNavToHome : () -> Unit,
+    onSignIn : () -> Unit,
+    email : String,
+    onEmailChange : (String) -> Unit,
+    password : String,
+    onPasswordChange : (String) -> Unit,
 ){
-
-    var email by remember {
-        mutableStateOf("")
-    }
-
-    var password by remember {
-        mutableStateOf("")
-    }
-
-//    val authResource = viewModel.loginFlow.collectAsState()
 
     Column(
         verticalArrangement = Arrangement.Center,
@@ -73,7 +109,7 @@ fun LoginInputFields(
         OutlinedTextField(
             value = email,
             onValueChange = {
-                email = it
+                onEmailChange(it)
             },
             label = {
                 Text(text = "Email")
@@ -89,7 +125,7 @@ fun LoginInputFields(
         OutlinedTextField(
             value = password,
             onValueChange = {
-                password = it
+                onPasswordChange(it)
             },
             label = {
                 Text(text = "Password")
@@ -115,7 +151,7 @@ fun LoginInputFields(
             ) {
                 Button(
                     onClick = {
-                        onNavToHome()
+                        onSignIn()
                     },
                     shape = RoundedCornerShape(20.dp),
                     modifier = Modifier
@@ -141,29 +177,6 @@ fun LoginInputFields(
 
             }
 
-//            authResource.value?.let {
-//                when(it){
-//                    is Resource.Failure -> {
-//                        val context = LocalContext.current
-//                        Toast.makeText(context, it.exception.message, Toast.LENGTH_SHORT).show()
-//                    }
-//                    Resource.Loading -> {
-//                        CircularProgressIndicator(
-//                            modifier = Modifier
-//                                .scale(0.5f)
-//                        )
-//                    }
-//                    is Resource.Success -> {
-//                        LaunchedEffect(Unit){
-//                            navigator.navigate(ListScreenDestination){
-//                                popUpTo(ListScreenDestination) {
-//                                    inclusive = true
-//                                }
-//                            }
-//                        }
-//                    }
-//                }
-//            }
         }
     }
 }

@@ -17,14 +17,20 @@ class LoginViewModel(
     private val _loginFlow = MutableStateFlow<AuthResult<FirebaseUser>?>(null)
     val loginFlow : StateFlow<AuthResult<FirebaseUser>?> = _loginFlow
 
-    val uiState = mutableStateOf(LoginUiState())
 
-    private val _email : String
-        get() = uiState.value.email
+    private var _email = mutableStateOf("")
+    val email : String
+        get() = _email.value
 
-    private val _password : String
-        get() = uiState.value.password
+    private var _password = mutableStateOf("")
+    val password : String
+        get() = _password.value
 
+    init {
+        if (accountService.user != null){
+            _loginFlow.value = AuthResult.Success(accountService.user!!)
+        }
+    }
 
     fun onEvents(events: LoginEvents){
         when(events){
@@ -32,20 +38,16 @@ class LoginViewModel(
                 viewModelScope.launch {
                     _loginFlow.value = AuthResult.Loading
                     val result = accountService.login(
-                        email = _email, password = _password
+                        email = _email.value, password = _password.value
                     )
                     _loginFlow.value = result
                 }
             }
             is LoginEvents.OnEmailChange -> {
-                uiState.value = uiState.value.copy(
-                    email = _email
-                )
+                _email.value = events.email
             }
             is LoginEvents.OnPasswordChange ->{
-                uiState.value = uiState.value.copy(
-                    password = _password
-                )
+                _password.value = events.password
             }
         }
     }
@@ -53,11 +55,6 @@ class LoginViewModel(
 
 sealed class LoginEvents{
     data class OnEmailChange(val email : String) : LoginEvents()
-    data class OnPasswordChange(val email : String) : LoginEvents()
+    data class OnPasswordChange(val password : String) : LoginEvents()
     data object Login : LoginEvents()
 }
-
-data class LoginUiState(
-    val email : String = "",
-    val password : String = ""
-)
